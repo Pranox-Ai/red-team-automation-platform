@@ -2,10 +2,9 @@ import nmap
 
 def scan_ports(target):
 
-    scanner = nmap.PortScanner(
-        nmap_search_path=("C:\\Program Files (x86)\\Nmap\\nmap.exe",)
-    )
+    scanner = nmap.PortScanner()
 
+    # Scan ports 1 to 1024
     scanner.scan(target, '1-1024')
 
     results = []
@@ -16,7 +15,6 @@ def scan_ports(target):
             ports = scanner[host][proto].keys()
 
             for port in ports:
-
                 results.append({
                     "port": port,
                     "state": scanner[host][proto][port]['state']
