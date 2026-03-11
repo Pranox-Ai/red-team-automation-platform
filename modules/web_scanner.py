@@ -1,28 +1,27 @@
-import nmap
+import requests
 
-def scan_ports(target):
-
-    results = []
-
+def check_headers(domain):
     try:
-        scanner = nmap.PortScanner()
-        scanner.scan(target, '1-1024')
+        url = "http://" + domain
+        r = requests.get(url)
 
-        for host in scanner.all_hosts():
-            for proto in scanner[host].all_protocols():
+        headers = r.headers
 
-                ports = scanner[host][proto].keys()
+        security_headers = [
+            "X-Frame-Options",
+            "Content-Security-Policy",
+            "X-XSS-Protection"
+        ]
 
-                for port in ports:
-                    results.append({
-                        "port": port,
-                        "state": scanner[host][proto][port]['state']
-                    })
+        result = {}
 
-    except:
-        results.append({
-            "port": "Nmap not supported on this server",
-            "state": "Unavailable"
-        })
+        for header in security_headers:
+            if header in headers:
+                result[header] = "Present"
+            else:
+                result[header] = "Missing"
 
-    return results
+        return result
+
+    except Exception as e:
+        return {"error": str(e)}
