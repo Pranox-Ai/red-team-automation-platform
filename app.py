@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request
 from modules.recon import get_domain_info
 from modules.port_scanner import scan_ports
@@ -11,6 +12,7 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
+
 @app.route('/scan', methods=['POST'])
 def scan():
 
@@ -18,7 +20,12 @@ def scan():
     password = request.form['password']
 
     recon = get_domain_info(target)
-    ports = scan_ports(target)
+
+    try:
+        ports = scan_ports(target)
+    except:
+        ports = [{"port": "Nmap unavailable on server", "state": "Skipped"}]
+
     headers = check_headers(target)
     password_strength = analyze_password(password)
 
@@ -34,5 +41,7 @@ def scan():
         report=report_file
     )
 
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
