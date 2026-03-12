@@ -144,7 +144,7 @@ This project is intended strictly for educational and ethical security testing p
 
 Do not use this tool to scan or test systems without proper authorization. Unauthorized scanning or security testing may violate legal and ethical guidelines.
 
-Use Targeted Domians only these two:
+Use Targeted Domians only these two:-
 1. scanme.nmap.org
 2. 127.0.0.1
 
