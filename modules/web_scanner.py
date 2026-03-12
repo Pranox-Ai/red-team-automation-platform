@@ -1,10 +1,14 @@
 import requests
 
 def check_headers(domain):
-    try:
-        url = "http://" + domain
-        r = requests.get(url)
 
+    if not domain.startswith("http"):
+        url = "http://" + domain
+    else:
+        url = domain
+
+    try:
+        r = requests.get(url, timeout=5)
         headers = r.headers
 
         security_headers = [
@@ -16,10 +20,7 @@ def check_headers(domain):
         result = {}
 
         for header in security_headers:
-            if header in headers:
-                result[header] = "Present"
-            else:
-                result[header] = "Missing"
+            result[header] = "Present" if header in headers else "Missing"
 
         return result
 
