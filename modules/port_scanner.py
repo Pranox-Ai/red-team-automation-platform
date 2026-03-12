@@ -1,23 +1,21 @@
-import nmap
+import socket
 
 def scan_ports(target):
 
-    scanner = nmap.PortScanner()
-
-    # Scan ports 1 to 1024
-    scanner.scan(target, '1-1024')
-
+    ports_to_scan = [21,22,23,25,53,80,110,143,443,445,3389]
     results = []
 
-    for host in scanner.all_hosts():
-        for proto in scanner[host].all_protocols():
+    for port in ports_to_scan:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(1)
 
-            ports = scanner[host][proto].keys()
+        try:
+            result = s.connect_ex((target, port))
+            if result == 0:
+                results.append({"port": port, "state": "open"})
+        except:
+            pass
 
-            for port in ports:
-                results.append({
-                    "port": port,
-                    "state": scanner[host][proto][port]['state']
-                })
+        s.close()
 
     return results
