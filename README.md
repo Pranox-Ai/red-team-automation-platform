@@ -129,6 +129,9 @@ Usage
 
 1. Open the application in a web browser.
 2. Enter a target domain.
+NOTE: It is illegal to use on all domains you could only test it on these two Domains Mentioned Below:
+      1. scanme.nmap.org
+      2. 127.0.0.1
 3. Enter a password for strength testing.
 4. Click the Start Scan button.
 5. The platform will perform automated security analysis and display the results.
@@ -140,6 +143,10 @@ Security Disclaimer
 This project is intended strictly for educational and ethical security testing purposes.
 
 Do not use this tool to scan or test systems without proper authorization. Unauthorized scanning or security testing may violate legal and ethical guidelines.
+
+Use Targeted Domians only these two:
+1. scanme.nmap.org
+2. 127.0.0.1
 
 --------------------------------------------------
 
@@ -160,7 +167,8 @@ Author
 
 Pranav R C
 
-Cybersecurity Enthusiast  
+Cybersecurity Enthusiast 
+AI Developer
 Engineering Student
 Computer Science and Design
 
